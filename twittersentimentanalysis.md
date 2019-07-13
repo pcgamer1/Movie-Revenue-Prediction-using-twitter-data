@@ -35,6 +35,7 @@ class TwitterClient(object):
             self.api = tweepy.API(self.auth) 
         except: 
             print("Error: Authentication Failed") 
+            
  ```
     Function used to clean tweets:
  ```python
