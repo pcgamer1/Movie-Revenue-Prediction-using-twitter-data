@@ -37,25 +37,23 @@ class TwitterClient(object):
             print("Error: Authentication Failed") 
             
  ```
-    Function used to clean tweets:
+    Function to clean tweet text by removing links, special characters 
+        using regex statements. 
+        
  ```python
 
     def clean_tweet(self, tweet): 
-        ''' 
-        Function to clean tweet text by removing links, special characters 
-        using regex statements. 
-        '''
+   
         return re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet) 
    
  ```
-    Function used to retreive the sentiment of tweets:
+   Function to return sentiment polarity of the passed tweet 
+        using textblob's sentiment attribute 
+    
  ```python
 
     def get_tweet_sentiment(self, tweet): 
-        ''' 
-        Function to return sentiment polarity of the passed tweet 
-        using textblob's sentiment attribute 
-        '''
+        
         #Calling TextBlob on passed tweet 
         analysis = TextBlob(self.clean_tweet(tweet)) 
         #Returning polarity
@@ -76,13 +74,12 @@ class TwitterClient(object):
         return analysis.sentiment.subjectivity
     
     ```
-    Function used to retreive tweeps using the API:
+    Function to fetch tweets and parse them. 
+    
     ```python
     
     def get_tweets(self, query, count = 10): 
-        ''' 
-        Main function to fetch tweets and parse them. 
-        '''
+        
         tweets = [] 
   
         try: 
@@ -115,6 +112,7 @@ class TwitterClient(object):
         except tweepy.TweepError as e: 
             # print error (if any) 
             print("Error : " + str(e))
+            
         ```
  **The main function:**
 ```python
