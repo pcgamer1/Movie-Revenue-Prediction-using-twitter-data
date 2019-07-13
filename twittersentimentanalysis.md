@@ -4,6 +4,7 @@ Created on Thu Feb 28 22:10:03 2019
 
 @author: Sarthak
 """
+
 **Importing required libraries:**
     
 ```python
@@ -38,19 +39,19 @@ class TwitterClient(object):
             
 ```
     Function to clean tweet text by removing links, special characters 
-        using regex statements. 
+    using regex statements. 
         
- ```python
+```python
 
     def clean_tweet(self, tweet): 
    
         return re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet) 
    
- ```
+```
    Function to return sentiment polarity of the passed tweet 
         using textblob's sentiment attribute 
     
- ```python
+```python
 
     def get_tweet_sentiment(self, tweet): 
         
@@ -59,9 +60,9 @@ class TwitterClient(object):
         #Returning polarity
         return analysis.sentiment.polarity
     
-  ``` 
+``` 
     Function used to retreive the subjectivity of the tweets:
-  ```python
+```python
 
      def get_tweet_subjectivity(self, tweet): 
         ''' 
@@ -73,10 +74,10 @@ class TwitterClient(object):
         #Returning subjectivity
         return analysis.sentiment.subjectivity
     
-    ```
+```
     Function to fetch tweets and parse them. 
     
-    ```python
+```python
     
     def get_tweets(self, query, count = 10): 
         
@@ -113,7 +114,7 @@ class TwitterClient(object):
             # print error (if any) 
             print("Error : " + str(e))
             
-        ```
+```
  **The main function:**
 ```python
 
@@ -121,26 +122,26 @@ def main():
    
 ```
     #Creating an object of TwitterClient Class
-    ```python
+```python
     
     api = TwitterClient()      
     
-    ```
+```
     
     #Calling member function to get tweets based on movie name
-    ```python
+```python
     
     tweets = api.get_tweets(query="#kesari",count=500)
     
-    ```
+```
     #Picking positive tweets from tweets
-    ```python
+```python
     
     senttweet=[tweet['sentiment'] for tweet in tweets if tweet['sentiment']>=0]
     
-    ```
+```
     #Picking neutral tweets from tweets
-    ```python
+```python
     
     neutraltweets=[tweet for tweet in tweets if tweet['sentiment']==0]
     npt=len(senttweet)
@@ -148,52 +149,52 @@ def main():
     print(npt)
     finalsent=npt/(len(tweets)-nnt)
     print(finalsent)
-    ```
+```
     #Importing the created Bollywood movie dataset
-    ```python
+```python
     
     import pandas as pd
     import numpy as np
     data=pd.read_excel("film.xlsx")
     data=data.replace([r"\bpoor\b",r"\baverage\b",r"\bgood\b"],[0.33,0.66,0.99],regex=True)
     
-    ```
+```
     
     #Assigning data
-    ```python
+```python
     
     x=data.drop(["revenue","name"],axis=1)
     y=data["revenue"]
     
-    ```
+```
     #Fitting the data to the model
-    ```python
+```python
     
     from sklearn.linear_model import LinearRegression
     lrm=LinearRegression()
     lrm.fit(x,y)
     
-    ```
+```
     #Preparing input
-    ```python
+```python
     
     finalsent*=5
     m=np.array([finalsent,0.99,0.66])
     M=m.reshape(1,-1)
     
-    ```
+```
     
     #Prediction
-    ```python
+```python
     
     r=lrm.predict(M)
     print(r)
     
-    ```
+```
 #Calling the main function
 ```python
 
 if __name__ == "__main__":
      main()
 
-        ```
+```
