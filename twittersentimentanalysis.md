@@ -38,8 +38,8 @@ class TwitterClient(object):
             print("Error: Authentication Failed") 
             
 ```
-    Function to clean tweet text by removing links, special characters 
-    using regex statements. 
+Function to clean tweet text by removing links, special characters 
+using regex statements. 
         
 ```python
 
@@ -48,8 +48,8 @@ class TwitterClient(object):
         return re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet) 
    
 ```
-   Function to return sentiment polarity of the passed tweet 
-        using textblob's sentiment attribute 
+Function to return sentiment polarity of the passed tweet 
+using textblob's sentiment attribute 
     
 ```python
 
@@ -61,7 +61,7 @@ class TwitterClient(object):
         return analysis.sentiment.polarity
     
 ``` 
-    Function used to retreive the subjectivity of the tweets:
+Function used to retreive the subjectivity of the tweets:
 ```python
 
      def get_tweet_subjectivity(self, tweet): 
@@ -75,7 +75,7 @@ class TwitterClient(object):
         return analysis.sentiment.subjectivity
     
 ```
-    Function to fetch tweets and parse them. 
+Function to fetch tweets and parse them. 
     
 ```python
     
@@ -121,26 +121,26 @@ class TwitterClient(object):
 def main():
    
 ```
-    #Creating an object of TwitterClient Class
+#Creating an object of TwitterClient Class
 ```python
     
     api = TwitterClient()      
     
 ```
     
-    #Calling member function to get tweets based on movie name
+#Calling member function to get tweets based on movie name
 ```python
     
     tweets = api.get_tweets(query="#kesari",count=500)
     
 ```
-    #Picking positive tweets from tweets
+#Picking positive tweets from tweets
 ```python
     
     senttweet=[tweet['sentiment'] for tweet in tweets if tweet['sentiment']>=0]
     
 ```
-    #Picking neutral tweets from tweets
+#Picking neutral tweets from tweets
 ```python
     
     neutraltweets=[tweet for tweet in tweets if tweet['sentiment']==0]
@@ -150,7 +150,7 @@ def main():
     finalsent=npt/(len(tweets)-nnt)
     print(finalsent)
 ```
-    #Importing the created Bollywood movie dataset
+#Importing the created Bollywood movie dataset
 ```python
     
     import pandas as pd
@@ -160,14 +160,14 @@ def main():
     
 ```
     
-    #Assigning data
+#Assigning data
 ```python
     
     x=data.drop(["revenue","name"],axis=1)
     y=data["revenue"]
     
 ```
-    #Fitting the data to the model
+#Fitting the data to the model
 ```python
     
     from sklearn.linear_model import LinearRegression
@@ -175,7 +175,7 @@ def main():
     lrm.fit(x,y)
     
 ```
-    #Preparing input
+#Preparing input
 ```python
     
     finalsent*=5
@@ -184,7 +184,7 @@ def main():
     
 ```
     
-    #Prediction
+#Prediction
 ```python
     
     r=lrm.predict(M)
