@@ -36,7 +36,7 @@ class TwitterClient(object):
         except: 
             print("Error: Authentication Failed") 
             
- ```
+```
     Function to clean tweet text by removing links, special characters 
         using regex statements. 
         
