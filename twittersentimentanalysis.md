@@ -4,11 +4,20 @@ Created on Thu Feb 28 22:10:03 2019
 
 @author: Sarthak
 """
+**Importing required libraries:**
+    
+```python
 
 import re
 import tweepy
 from textblob import TextBlob
 from tweepy import OAuthHandler
+
+```
+
+**Defining the class used for accessing the tweepy API object:**
+    
+```python
 
 class TwitterClient(object):
     
@@ -26,7 +35,10 @@ class TwitterClient(object):
             self.api = tweepy.API(self.auth) 
         except: 
             print("Error: Authentication Failed") 
-            
+ ```
+    Function used to clean tweets:
+ ```python
+
     def clean_tweet(self, tweet): 
         ''' 
         Function to clean tweet text by removing links, special characters 
@@ -34,7 +46,10 @@ class TwitterClient(object):
         '''
         return re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet) 
    
-  
+ ```
+    Function used to retreive the sentiment of tweets:
+ ```python
+
     def get_tweet_sentiment(self, tweet): 
         ''' 
         Function to return sentiment polarity of the passed tweet 
@@ -45,7 +60,10 @@ class TwitterClient(object):
         #Returning polarity
         return analysis.sentiment.polarity
     
-    
+  ``` 
+    Function used to retreive the subjectivity of the tweets:
+  ```python
+
      def get_tweet_subjectivity(self, tweet): 
         ''' 
         Function to return sentiment subjectivity of the passed tweet 
@@ -56,6 +74,9 @@ class TwitterClient(object):
         #Returning subjectivity
         return analysis.sentiment.subjectivity
     
+    ```
+    Function used to retreive tweeps using the API:
+    ```python
     
     def get_tweets(self, query, count = 10): 
         ''' 
@@ -92,50 +113,88 @@ class TwitterClient(object):
   
         except tweepy.TweepError as e: 
             # print error (if any) 
-            print("Error : " + str(e)) 
-  
+            print("Error : " + str(e))
+        ```
+ **The main function:**
+```python
+
 def main():
-    #Creating an object of TwitterClient Class 
-    api = TwitterClient() 
+   
+```
+    #Creating an object of TwitterClient Class
+    ```python
+    
+    api = TwitterClient()      
+    
+    ```
     
     #Calling member function to get tweets based on movie name
+    ```python
+    
     tweets = api.get_tweets(query="#kesari",count=500)
     
+    ```
     #Picking positive tweets from tweets
+    ```python
+    
     senttweet=[tweet['sentiment'] for tweet in tweets if tweet['sentiment']>=0]
     
+    ```
     #Picking neutral tweets from tweets
+    ```python
+    
     neutraltweets=[tweet for tweet in tweets if tweet['sentiment']==0]
     npt=len(senttweet)
     nnt=len(neutraltweets)
     print(npt)
     finalsent=npt/(len(tweets)-nnt)
     print(finalsent)
-    
+    ```
     #Importing the created Bollywood movie dataset
+    ```python
+    
     import pandas as pd
     import numpy as np
     data=pd.read_excel("film.xlsx")
     data=data.replace([r"\bpoor\b",r"\baverage\b",r"\bgood\b"],[0.33,0.66,0.99],regex=True)
     
+    ```
+    
     #Assigning data
+    ```python
+    
     x=data.drop(["revenue","name"],axis=1)
     y=data["revenue"]
     
+    ```
     #Fitting the data to the model
+    ```python
+    
     from sklearn.linear_model import LinearRegression
     lrm=LinearRegression()
     lrm.fit(x,y)
     
+    ```
     #Preparing input
+    ```python
+    
     finalsent*=5
     m=np.array([finalsent,0.99,0.66])
     M=m.reshape(1,-1)
     
+    ```
+    
     #Prediction
+    ```python
+    
     r=lrm.predict(M)
     print(r)
     
+    ```
 #Calling the main function
+```python
+
 if __name__ == "__main__":
      main()
+
+        ```
